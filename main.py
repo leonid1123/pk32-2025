@@ -12,16 +12,23 @@ class MainWindow(QWidget):
         apply_stylesheet(app, theme='light_blue.xml')
         layout = QGridLayout()
         self.setLayout(layout)
-        lbl = QLabel("пуп")
-        layout.addWidget(lbl, 0, 0)
-        btn = QPushButton("ПУП!!!")
+        self.lbl = QLabel("пуп")
+        layout.addWidget(self.lbl, 0, 0)
+        btn = QPushButton("ПУП!!!", )
+        btn.clicked.connect(self.my_slot)
         layout.addWidget(btn, 1, 1)
-        edit1 = QLineEdit()
-        layout.addWidget(edit1,0,1)
-        edit2 = QLineEdit()
-        layout.addWidget(edit2,0,2)
+        self.edit1 = QLineEdit()
+        layout.addWidget(self.edit1, 0, 1)
+        self.edit2 = QLineEdit()
+        layout.addWidget(self.edit2, 0, 2)
         # show the window
         self.show()
+
+    def my_slot(self):
+        print("ОЙ!!!")
+        str1 = self.edit1.text()
+        str2 = self.edit2.text()
+        self.lbl.setText(str1 + str2)
 
 
 if __name__ == '__main__':
