@@ -21,7 +21,7 @@ class MainWindow(QWidget):
         self.students = []
         self.setGeometry(100, 100, 500, 600)
         self.setWindowTitle('Студенческий отдел кадров')
-        apply_stylesheet(app, theme='light_blue.xml')
+        apply_stylesheet(app, theme='dark_blue.xml')
         layout = QGridLayout()
         self.setLayout(layout)
         self.student_view = QListWidget()
