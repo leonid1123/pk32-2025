@@ -21,10 +21,11 @@ class MainWindow(QWidget):
         self.students = []
         self.setGeometry(100, 100, 500, 600)
         self.setWindowTitle('Студенческий отдел кадров')
-        apply_stylesheet(app, theme='dark_blue.xml')
+        apply_stylesheet(app, theme='light_blue.xml')
         layout = QGridLayout()
         self.setLayout(layout)
         self.student_view = QListWidget()
+        self.student_view.currentItemChanged.connect(self.list_item_change)
         self.fam_entry = QLineEdit()
         self.name_entry = QLineEdit()
         self.otchestvo_entry = QLineEdit()
@@ -97,6 +98,11 @@ class MainWindow(QWidget):
         #перенести в другой метод
         self.name_entry.clear()
         self.name_entry.insert(self.students[x].name)
+
+    def list_item_change(self):
+        """метод для определения выбранного студента.
+        Вызывается при изменении пункта списка"""
+        print("pup")
 
 
 if __name__ == '__main__':
