@@ -6,7 +6,7 @@ import pymysql.cursors
 
 
 class Student:
-    def __init__(self,_name,_fam,_otch,_dr,_tel,_id):
+    def __init__(self, _name, _fam, _otch, _dr, _tel, _id):
         self.name = _name
         self.fam = _fam
         self.otch = _otch
@@ -25,7 +25,7 @@ class MainWindow(QWidget):
         layout = QGridLayout()
         self.setLayout(layout)
         self.student_view = QListWidget()
-        self.student_view.currentItemChanged.connect(self.list_item_change)
+        self.student_view.currentRowChanged.connect(self.list_item_change)
         self.fam_entry = QLineEdit()
         self.name_entry = QLineEdit()
         self.otchestvo_entry = QLineEdit()
@@ -47,7 +47,7 @@ class MainWindow(QWidget):
 
         layout.addWidget(QLabel("Фамилия"), 1, 0)
         layout.addWidget(QLabel("Имя"), 1, 2)
-        layout.addWidget(QLabel("Отчество"), 2, 0)
+        layout.addWidget(QLabel("Группа"), 2, 0)
         layout.addWidget(QLabel("Дата рождения"), 2, 2)
         layout.addWidget(QLabel("Телефон"), 3, 0)
 
@@ -66,7 +66,7 @@ class MainWindow(QWidget):
         self.cur.execute(sql)
         ans = self.cur.fetchall()
         for item in ans:
-            st = Student(item[1],item[2],item[3],item[4],item[5],item[0])
+            st = Student(item[1], item[2], item[3], item[4], item[5], item[0])
             self.students.append(st)
             self.student_view.addItem(
                 f"{item[1]}, {item[2]}, {item[3]}, {item[4]}")
@@ -99,10 +99,18 @@ class MainWindow(QWidget):
         self.name_entry.clear()
         self.name_entry.insert(self.students[x].name)
 
-    def list_item_change(self):
+    def list_item_change(self, row):
         """метод для определения выбранного студента.
         Вызывается при изменении пункта списка"""
-        print("pup")
+        print(row)
+        st = self.students[row]
+        self.selected_id = st.id
+        self.name_entry.setText(st.name)
+        self.fam_entry.setText(st.fam)
+        self.otchestvo_entry.setText(st.otch)
+        self.data_rozhdeniya_entry.setText(str(st.dr))
+        self.phone_entry.setText(st.tel)
+
 
 
 if __name__ == '__main__':
